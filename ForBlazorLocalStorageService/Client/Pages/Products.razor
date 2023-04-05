@@ -1,0 +1,28 @@
+﻿@page "/products"
+@using ForBlazorLocalStorageService.Client.Services;
+@inject ICartExampleService _cartExampleService
+
+@foreach (var item in products)
+{
+    <div class="card">
+        <h5>@item.Name</h5>
+        <h6>@item.Description</h6>
+         <button @onclick="@(() => DeleteLocalStorage(item.Id))" class="btn btn-warning">Delete Product</button>
+    </div>
+}
+
+
+@code {
+    List<Product> products = new List<Product>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await _cartExampleService.GetProductsAsync();
+    }
+
+    private async Task DeleteLocalStorage(int productId)
+    {
+        await _cartExampleService.DeleteProductAsync(productId);
+        products = await _cartExampleService.GetProductsAsync();
+    }
+}

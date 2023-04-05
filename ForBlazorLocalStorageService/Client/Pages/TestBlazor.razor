@@ -1,0 +1,43 @@
+﻿@page "/product/add"
+@using ForBlazorLocalStorageService.Client.Services;
+@inject ICartExampleService _cartExampleService
+
+
+<h3>Add Product</h3>
+
+<EditForm Model="@product" OnValidSubmit="@CreateLocalStorage">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label for="Name">Name:</label>
+        <InputText id="Name" class="form-control" @bind-Value="product.Name" />
+        <ValidationMessage For="@(() => product.Name)" />
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Description:</label>
+        <InputTextArea id="Description" class="form-control" @bind-Value="product.Description" />
+        <ValidationMessage For="@(() => product.Description)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Product</button>
+
+
+
+</EditForm>
+
+
+
+@code {
+    Product product = new Product();
+    private async Task CreateLocalStorage()
+    {
+        await _cartExampleService.CreateProductAsync(product);
+    }
+
+    private async Task DeleteLocalStorage(int id)
+    {
+        await _cartExampleService.DeleteProductAsync(id);
+    }
+
+}
