@@ -1,7 +1,8 @@
 ﻿using Blazored.LocalStorage;
+using ForBlazorLocalStorageService.Shared;
 using System.Net.Http.Json;
 
-namespace ForBlazorLocalStorageService.Client.Services.Order
+namespace ForBlazorLocalStorageService.Client.Services.Orders
 {
     public class OrderService : IOrderService
     {
@@ -13,8 +14,8 @@ namespace ForBlazorLocalStorageService.Client.Services.Order
             _client = client;
         }
 
-        public List<Model> models { get ; set ; } = new List<Model>();  
         public List<Product> products { get ; set ; }
+        public List<Order> orders { get ; set ; }=new List<Order>();
 
         public async Task CreateOrder()
         {
@@ -22,14 +23,16 @@ namespace ForBlazorLocalStorageService.Client.Services.Order
 
             foreach (var item in result1)
             {
-                Model model = new Model();
+                Order model = new Order();
 
                 model.Name = item.Name;
                 model.Description=item.Description;
-                models.Add(model);
+                orders.Add(model);
             }
 
-            var result = await _client.PostAsJsonAsync("api/order", models);
+            var result = await _client.PostAsJsonAsync("api/order", orders);
+
+            await _service.RemoveItemAsync("products");
 
         }
     }

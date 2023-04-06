@@ -1,7 +1,7 @@
 using Blazored.LocalStorage;
 using ForBlazorLocalStorageService.Client;
 using ForBlazorLocalStorageService.Client.Services;
-using ForBlazorLocalStorageService.Client.Services.Order;
+using ForBlazorLocalStorageService.Client.Services.Orders;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
