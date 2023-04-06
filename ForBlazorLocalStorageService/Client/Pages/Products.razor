@@ -1,6 +1,8 @@
 ﻿@page "/products"
 @using ForBlazorLocalStorageService.Client.Services;
+@using ForBlazorLocalStorageService.Client.Services.Order;
 @inject ICartExampleService _cartExampleService
+@inject IOrderService _orderService
 
 @foreach (var item in products)
 {
@@ -8,6 +10,8 @@
         <h5>@item.Name</h5>
         <h6>@item.Description</h6>
          <button @onclick="@(() => DeleteLocalStorage(item.Id))" class="btn btn-warning">Delete Product</button>
+        <button @onclick="StoreItem" class="btn btn-warning">Store Product</button>
+
     </div>
 }
 
@@ -25,4 +29,10 @@
         await _cartExampleService.DeleteProductAsync(productId);
         products = await _cartExampleService.GetProductsAsync();
     }
+
+    private async Task StoreItem()
+    {
+        await _orderService.CreateOrder();
+    }
+
 }

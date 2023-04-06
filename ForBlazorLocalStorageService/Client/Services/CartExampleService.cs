@@ -1,4 +1,5 @@
-﻿using Blazored.LocalStorage;
+﻿
+using Blazored.LocalStorage;
 
 namespace ForBlazorLocalStorageService.Client.Services
 {
@@ -10,6 +11,7 @@ namespace ForBlazorLocalStorageService.Client.Services
         {
             _localStorageService = localStorageService;
         }
+
 
         public async Task CreateProductAsync(Product product)
         {
@@ -78,5 +80,9 @@ namespace ForBlazorLocalStorageService.Client.Services
 
             return product;
         }
+
+        
+
+
     }
 }

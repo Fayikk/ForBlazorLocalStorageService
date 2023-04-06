@@ -1,6 +1,7 @@
 ﻿@page "/product/add"
 @using ForBlazorLocalStorageService.Client.Services;
 @inject ICartExampleService _cartExampleService
+@inject NavigationManager _navigationManager
 
 
 <h3>Add Product</h3>
@@ -21,18 +22,17 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Add Product</button>
-
-
-
 </EditForm>
 
 
 
 @code {
     Product product = new Product();
+
     private async Task CreateLocalStorage()
     {
         await _cartExampleService.CreateProductAsync(product);
+        _navigationManager.NavigateTo("products");
     }
 
     private async Task DeleteLocalStorage(int id)
